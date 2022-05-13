@@ -8,6 +8,7 @@ import {
   Button,
   CircularProgress,
   Grid,
+  IconButton,
   Typography,
 } from '@mui/material';
 import logo from '../assets/logo.svg';
@@ -15,7 +16,6 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { IArticles } from '../types/types';
 import { formatTimeBetween } from '../helpers/formatTimeBetween';
-import { dirname } from 'path';
 
 function SingleNews(): JSX.Element {
   const params = useParams();
@@ -101,26 +101,25 @@ function SingleNews(): JSX.Element {
           },
         }}
       >
-        <Grid item xs={12} sm>
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          <IconButton
+            onClick={() => {
+              navigate('/');
             }}
+            aria-label='delete'
           >
-            <Button
-              onClick={() => {
-                navigate('/');
-              }}
-            >
-              <ArrowBackIcon fontSize='large' color='primary' />
-            </Button>
-
-            <Typography variant='h6' component='div' marginLeft={2}>
-              <img src={logo} alt='logo'></img>
-            </Typography>
-          </Box>
-        </Grid>
+            <ArrowBackIcon fontSize='large' color='primary' />
+          </IconButton>
+          <Typography variant='h6' component='div' marginLeft={2}>
+            <img src={logo} alt='logo'></img>
+          </Typography>
+        </Box>
+        <Grid item xs={12} sm></Grid>
 
         {loading ? (
           <Box
@@ -155,7 +154,18 @@ function SingleNews(): JSX.Element {
                 justifyContent: 'center',
               }}
             >
-              <Typography variant='h4' component='div'>
+              <Typography
+                variant='h4'
+                component='div'
+                sx={{
+                  '@media (max-width: 650px)': {
+                    fontSize: '24px',
+                  },
+                  '@media (max-width: 380px)': {
+                    fontSize: '20px',
+                  },
+                }}
+              >
                 {article?.title}
               </Typography>
               <Typography variant='h6' component='div' color='GrayText'>
@@ -166,9 +176,24 @@ function SingleNews(): JSX.Element {
                   height: '500px',
                   backgroundImage: `url(${article?.imageUrl})`,
                   backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  '@media (max-width: 650px)': {
+                    height: '200px',
+                  },
                 }}
               ></Box>
-              <Typography variant='h6' component='div'>
+              <Typography
+                variant='h6'
+                component='div'
+                sx={{
+                  '@media (max-width: 650px)': {
+                    fontSize: '20px',
+                    '@media (max-width: 380px)': {
+                      fontSize: '16px',
+                    },
+                  },
+                }}
+              >
                 {article?.summary}
               </Typography>
               <Button
@@ -179,31 +204,32 @@ function SingleNews(): JSX.Element {
               >
                 Ver no site
               </Button>
-              <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  marginTop: '20px',
-                }}
-              >
-                <Button
-                  onClick={() => {
-                    handlePreviousNews(article?.id);
-                  }}
-                >
-                  <ArrowBackIcon fontSize='large' color='primary' />
-                </Button>
-                <Button
-                  onClick={() => {
-                    handleNextNews(article?.id);
-                  }}
-                >
-                  <ArrowForwardIcon fontSize='large' color='primary' />
-                </Button>
-              </Box>
             </Box>
           </Grid>
         )}
+        <Box
+          sx={{
+            display: 'flex',
+            width: '100%',
+            justifyContent: 'space-between',
+            marginTop: '20px',
+          }}
+        >
+          <IconButton
+            onClick={() => {
+              handlePreviousNews(article?.id);
+            }}
+          >
+            <ArrowBackIcon fontSize='large' color='primary' />
+          </IconButton>
+          <IconButton
+            onClick={() => {
+              handleNextNews(article?.id);
+            }}
+          >
+            <ArrowForwardIcon fontSize='large' color='primary' />
+          </IconButton>
+        </Box>
       </Grid>
     </Box>
   );
