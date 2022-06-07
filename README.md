@@ -11,8 +11,12 @@
 ~~~Terminal
 npm install
 ~~~
+4- No terminal, na pasta do projeto dê o comando
+~~~Terminal
+npm start
+~~~
 
-4- Abra o seguinte link em algum navegador
+5- Abra o seguinte link em algum navegador
 ~~~Terminal
 http://localhost:3000
 ~~~
