@@ -5,15 +5,16 @@ import { api } from '../services/api';
 interface Props {
   page: number;
   handleSetPage: (page: number) => void;
+  limit: number;
 }
 
-function Paginator({ page, handleSetPage }: Props): JSX.Element {
+function Paginator({ page, handleSetPage, limit }: Props): JSX.Element {
   const [count, setCount] = useState<number | any>(0);
 
   useEffect(() => {
     api.getTotalArticlesCount().then((data) => {
-      setCount(data);
-      console.log(data);
+      const total = Math.round(+data / limit);
+      setCount(total);
     });
   }, []);
 

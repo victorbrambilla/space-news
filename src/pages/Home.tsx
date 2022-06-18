@@ -119,7 +119,7 @@ function Home() {
               mt: '50px',
             }}
           >
-            <Paginator page={page} handleSetPage={setPage} />
+            <Paginator limit={limit} page={page} handleSetPage={setPage} />
           </Box>
         </Box>
       </Box>
